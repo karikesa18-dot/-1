@@ -1,0 +1,37 @@
+import java.util.HashMap;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("N: ");
+        int N = scanner.nextInt();
+        scanner.close();
+        System.out.println("N-ое число в последовательности: " + findNthNumber(N));
+    }
+
+    private static boolean hasDuplicateDigits(int num) {
+        HashMap<Character> digits = new HashMap<>();
+        String numStr = Integer.toString(num);
+        for (char digit : numStr.toCharArray()) {
+            if (digits.contains(digit)) {
+                return true;
+            }
+            digits.add(digit);
+        }
+        return false;
+    }
+
+    private static int findNthNumber(int N) {
+        if (N <= 0) return 0;
+        int count = 0;
+        int currentNumber = 0;
+        while (count < N) {
+            currentNumber++;
+            if (!hasDuplicateDigits(currentNumber)) {
+                count++;
+            }
+        }
+        return currentNumber;
+    }
+}
